@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IFT Website & FMS — Multi-Pane Layout Design Reference</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-secondary: #f7f6f3;
+    --bg-code: #f3f2ef;
+    --text: #1a1a18;
+    --text-muted: #5f5e5a;
+    --text-hint: #888780;
+    --border: rgba(0,0,0,0.12);
+    --border-med: rgba(0,0,0,0.2);
+    --accent: #185fa5;
+    --accent-bg: #e6f1fb;
+    --success-bg: #eaf3de;
+    --success-text: #3b6d11;
+    --danger-bg: #fcebeb;
+    --danger-text: #a32d2d;
+    --warn-bg: #faeeda;
+    --warn-text: #854f0b;
+    --radius: 8px;
+    --radius-lg: 12px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 3rem 2rem 5rem;
+  }
+
+  /* Header */
+  .doc-header {
+    border-bottom: 1.5px solid var(--text);
+    padding-bottom: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .doc-label {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-hint);
+    margin-bottom: 0.5rem;
+  }
+
+  .doc-title {
+    font-size: 26px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.3;
+    margin-bottom: 0.75rem;
+  }
+
+  .doc-meta {
+    font-size: 13px;
+    color: var(--text-muted);
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  /* Sections */
+  .section {
+    margin-bottom: 2.5rem;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .section-num {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-hint);
+    letter-spacing: 0.08em;
+    min-width: 24px;
+  }
+
+  .section-title {
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .divider {
+    border: none;
+    border-top: 0.5px solid var(--border);
+    margin: 0.6rem 0 1.1rem;
+  }
+
+  .lead {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 1rem;
+    padding-left: 0;
+  }
+
+  p {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    line-height: 1.75;
+  }
+
+  strong { color: var(--text); font-weight: 500; }
+
+  /* Tables */
+  .table-wrap {
+    margin-bottom: 1.25rem;
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  th {
+    text-align: left;
+    padding: 9px 14px;
+    background: var(--bg-secondary);
+    color: var(--text-muted);
+    font-weight: 500;
+    border-bottom: 0.5px solid var(--border-med);
+    white-space: nowrap;
+  }
+
+  td {
+    padding: 9px 14px;
+    border-bottom: 0.5px solid var(--border);
+    color: var(--text);
+    vertical-align: top;
+    line-height: 1.6;
+  }
+
+  td:first-child { font-weight: 500; }
+
+  tr:last-child td { border-bottom: none; }
+
+  /* Badges */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    padding: 2px 9px;
+    border-radius: 6px;
+    white-space: nowrap;
+  }
+  .ok  { background: var(--success-bg); color: var(--success-text); }
+  .no  { background: var(--danger-bg);  color: var(--danger-text); }
+  .warn{ background: var(--warn-bg);    color: var(--warn-text); }
+
+  /* Code blocks */
+  .code-label {
+    font-size: 10px;
+    font-family: 'SF Mono', 'Fira Mono', monospace;
+    color: var(--text-hint);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .code-block {
+    background: var(--bg-code);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    font-family: 'SF Mono', 'Fira Mono', 'Courier New', monospace;
+    font-size: 12.5px;
+    line-height: 1.85;
+    color: var(--text);
+    overflow-x: auto;
+    margin-bottom: 1.25rem;
+  }
+
+  .kw  { color: #534ab7; }
+  .fn  { color: #0f6e56; }
+  .cm  { color: var(--text-hint); font-style: italic; }
+
+  /* Summary box */
+  .summary-box {
+    background: var(--bg-secondary);
+    border: 0.5px solid var(--border-med);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem 1.75rem;
+    margin-top: 0.5rem;
+  }
+
+  .summary-topic {
+    margin-bottom: 1.25rem;
+  }
+
+  .summary-topic:last-child { margin-bottom: 0; }
+
+  .summary-topic-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+  }
+
+  .summary-item {
+    display: flex;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.65;
+    padding: 1px 0;
+  }
+
+  .arrow { color: var(--text-hint); flex-shrink: 0; }
+
+  /* Highlight inline */
+  .hl { font-weight: 500; color: var(--text); }
+
+  /* Inline code */
+  code {
+    font-family: 'SF Mono', 'Fira Mono', monospace;
+    font-size: 12px;
+    background: var(--bg-code);
+    border: 0.5px solid var(--border);
+    border-radius: 4px;
+    padding: 1px 6px;
+    color: var(--text);
+  }
+
+  /* Print / share note */
+  .footer {
+    margin-top: 3rem;
+    padding-top: 1rem;
+    border-top: 0.5px solid var(--border);
+    font-size: 12px;
+    color: var(--text-hint);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 600px) {
+    .page { padding: 2rem 1.25rem 4rem; }
+    .doc-title { font-size: 20px; }
+    .doc-meta { flex-direction: column; gap: 0.4rem; }
+  }
+
+  @media print {
+    .page { padding: 1.5rem; }
+    .section { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="doc-header">
+    <div class="doc-label">InfoTrack Telematics — Internal Reference</div>
+    <div class="doc-title">IFT Website &amp; FMS Design Direction<br>Multi-Pane Layout — Technical &amp; UX Framework</div>
+    <div class="doc-meta">
+      <span>For: Praveen HG (COO) &amp; Gopi (Design)</span>
+      <span>Prepared by: Kudo (MD)</span>
+      <span>May 2026</span>
+    </div>
+  </div>
+
+  <!-- Section 1 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <span class="section-title">Resizable panes: should the designer decide?</span>
+    </div>
+    <hr class="divider">
+    <p class="lead">Answer: Yes — the designer decides. But the decision must be justified.</p>
+
+    <div class="table-wrap">
+      <table>
+        <tr>
+          <th>Approach</th>
+          <th>Appropriate context</th>
+          <th>Rationale</th>
+        </tr>
+        <tr>
+          <td>Fixed layout</td>
+          <td>General-user FMS, corporate homepage</td>
+          <td>Reduces cognitive load. Keeps users focused.</td>
+        </tr>
+        <tr>
+          <td>Resizable panes</td>
+          <td>Power-user monitoring, map + table side-by-side</td>
+          <td>Efficiency-first. Pro-tool and IDE paradigm.</td>
+        </tr>
+        <tr>
+          <td>Preset switching</td>
+          <td>FMS v16 approach</td>
+          <td>Compromise between flexibility and UX stability.</td>
+        </tr>
+      </table>
+    </div>
+
+    <p>In the IFT FMS context, the ratio of <span class="hl">vehicle list width to map width</span> is something users genuinely want to control (e.g. field operations on narrow screens). However, "anything goes" causes confusion. <span class="hl">2–3 preset layout modes</span> with a toggle is the pragmatic solution.</p>
+  </div>
+
+  <!-- Section 2 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <span class="section-title">Responsive grid: is it needed on a homepage too?</span>
+    </div>
+    <hr class="divider">
+    <p class="lead">Yes — and the homepage is arguably where it matters most.</p>
+    <p style="font-weight:500;font-size:14px;color:var(--text);margin-bottom:0.5rem">Core technical concept</p>
+
+    <div class="code-block">
+<span class="cm">4K (2560px+)    →  6-column grid</span>
+<span class="cm">Desktop (1280px) →  4-column grid</span>
+<span class="cm">Tablet (768px)   →  2-column grid</span>
+<span class="cm">Mobile (360px)   →  1-column grid</span>
+    </div>
+
+    <p>Achievable in CSS alone:</p>
+    <div class="code-label">CSS</div>
+    <div class="code-block">
+<span class="fn">.service-grid</span> {
+  <span class="kw">display</span>: grid;
+  <span class="kw">grid-template-columns</span>: <span class="fn">repeat</span>(auto-fit, <span class="fn">minmax</span>(200px, 1fr));
+  <span class="kw">gap</span>: 1.5rem;
+}
+    </div>
+
+    <p>The <span class="hl">auto-fit + minmax</span> combination achieves automatic optimization <span class="hl">without explicitly writing breakpoints</span>. This is part of the direct answer to Gopi's "1024px limitation."</p>
+  </div>
+
+  <!-- Section 3 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <span class="section-title">Gopi's "1024px limitation"</span>
+    </div>
+    <hr class="divider">
+    <p class="lead">This is incorrect — or reflects outdated knowledge.</p>
+
+    <div class="table-wrap">
+      <table>
+        <tr>
+          <th>Claim</th>
+          <th>Accurate assessment</th>
+        </tr>
+        <tr>
+          <td>"Cannot support beyond 1024px"</td>
+          <td><span class="badge no">✕ Wrong</span>&nbsp; CSS Grid has no such limit</td>
+        </tr>
+        <tr>
+          <td>"Mobile and PC require separate sites"</td>
+          <td><span class="badge no">✕ Outdated</span>&nbsp; Early 2010s thinking</td>
+        </tr>
+        <tr>
+          <td>"4K requires special handling"</td>
+          <td><span class="badge warn">△ Partially true</span>&nbsp; Addressed with <code>max-width</code> and <code>clamp()</code></td>
+        </tr>
+      </table>
+    </div>
+
+    <p>Modern approach:</p>
+    <div class="code-label">CSS</div>
+    <div class="code-block">
+<span class="cm">/* One stylesheet handles 4K down to 320px */</span>
+<span class="fn">.container</span> {
+  <span class="kw">width</span>: <span class="fn">min</span>(1400px, 100% - 2rem);
+  <span class="kw">margin-inline</span>: auto;
+}
+    </div>
+
+    <p>If Gopi's knowledge stands at this level, <span class="hl">concern about entrusting him with the IFT website modernization is fully justified.</span></p>
+  </div>
+
+  <!-- Section 4 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <span class="section-title">AI-adaptive layout: technically feasible?</span>
+    </div>
+    <hr class="divider">
+    <p class="lead">Yes — but there are distinct levels.</p>
+
+    <div class="table-wrap">
+      <table>
+        <tr>
+          <th>Level</th>
+          <th>Technology</th>
+          <th>Feasibility for IFT</th>
+        </tr>
+        <tr>
+          <td>L1</td>
+          <td>CSS auto-fit / Container Queries</td>
+          <td>Deployable now. Static rules, fully automated.</td>
+        </tr>
+        <tr>
+          <td>L2</td>
+          <td>JS adaptation from user behavior (surface frequent features)</td>
+          <td>Feasible. LocalStorage + simple logic.</td>
+        </tr>
+        <tr>
+          <td>L3</td>
+          <td>AI layout optimization via user profile</td>
+          <td>Technically possible. Over-investment for FMS scale.</td>
+        </tr>
+        <tr>
+          <td>L4</td>
+          <td>Real-time AI layout generation</td>
+          <td>Research stage. Production cost too high.</td>
+        </tr>
+      </table>
+    </div>
+
+    <p><span class="hl">IFT's pragmatic target: L1–L2.</span> L3 and above do not justify ROI at current scale.</p>
+  </div>
+
+  <!-- Section 5 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <span class="section-title">Web vs. mobile: differences in drag interaction</span>
+    </div>
+    <hr class="divider">
+
+    <div class="table-wrap">
+      <table>
+        <tr>
+          <th>Interaction</th>
+          <th>Web (PC)</th>
+          <th>Mobile</th>
+        </tr>
+        <tr>
+          <td>Drag to resize pane</td>
+          <td><span class="badge ok">✓ Natural, reliable</span></td>
+          <td><span class="badge no">✕ Conflicts with touch gestures</span></td>
+        </tr>
+        <tr>
+          <td>Drag to reorder grid items</td>
+          <td><span class="badge ok">✓ Drag &amp; Drop API</span></td>
+          <td><span class="badge warn">△ Possible via touch-action, but complex</span></td>
+        </tr>
+        <tr>
+          <td>Swipe to switch pane</td>
+          <td><span class="badge no">✕ Unnatural on desktop</span></td>
+          <td><span class="badge ok">✓ Native mobile UX</span></td>
+        </tr>
+      </table>
+    </div>
+
+    <p><span class="hl">Differentiating interaction design between PC and mobile is the correct approach.</span> Delivering both from a single React codebase is the modern best practice — and should be reflected in IFT's design specifications.</p>
+  </div>
+
+  <!-- Section 6 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <span class="section-title">FMS v12 → v14 → v16 — version context</span>
+    </div>
+    <hr class="divider">
+
+    <div class="table-wrap">
+      <table>
+        <tr>
+          <th>Version</th>
+          <th>Technology</th>
+          <th>Layout flexibility</th>
+          <th>Key concern</th>
+        </tr>
+        <tr>
+          <td>v12 (.NET)</td>
+          <td>Server-side rendering</td>
+          <td>Fixed. Difficult to change.</td>
+          <td>Legacy dependency</td>
+        </tr>
+        <tr>
+          <td>v14 (React)</td>
+          <td>Component-based</td>
+          <td>Flexible — design-dependent</td>
+          <td>Depends on design quality</td>
+        </tr>
+        <tr>
+          <td>v16 (v14 + feature selection)</td>
+          <td>React + state management</td>
+          <td>Feature selection ○, layout △</td>
+          <td>This is the core of the discussion</td>
+        </tr>
+      </table>
+    </div>
+
+    <p><span class="hl">The absence of layout flexibility in v16 is a design decision, not a technical constraint.</span> React is fully capable of implementing it. It is a question of priority.</p>
+  </div>
+
+  <!-- Summary -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num"></span>
+      <span class="section-title">Summary for discussion with Praveen and Gopi</span>
+    </div>
+    <hr class="divider">
+
+    <div class="summary-box">
+      <div class="summary-topic">
+        <div class="summary-topic-title">Topic 1 — IFT Homepage</div>
+        <div class="summary-item"><span class="arrow">→</span><span>CSS Grid auto-fit handles everything from 4K to mobile in a single stylesheet</span></div>
+        <div class="summary-item"><span class="arrow">→</span><span>The 1024px constraint has no technical basis (action item: Gopi to confirm)</span></div>
+        <div class="summary-item"><span class="arrow">→</span><span>AI-adaptive layout at L1 (CSS automation) is sufficient for the homepage</span></div>
+      </div>
+      <div class="summary-topic">
+        <div class="summary-topic-title">Topic 2 — FMS application</div>
+        <div class="summary-item"><span class="arrow">→</span><span>Fixed vs. resizable is the designer's UX call, not a technical limitation</span></div>
+        <div class="summary-item"><span class="arrow">→</span><span>Adding preset layout switching to v16 is realistic and warranted</span></div>
+        <div class="summary-item"><span class="arrow">→</span><span>Interaction design must be intentionally differentiated by platform (PC vs. mobile)</span></div>
+      </div>
+      <div class="summary-topic">
+        <div class="summary-topic-title">Topic 3 — Technology direction</div>
+        <div class="summary-item"><span class="arrow">→</span><span>React + Tailwind CSS + Container Queries is the current industry standard</span></div>
+        <div class="summary-item"><span class="arrow">→</span><span>Maintaining .NET v12 in parallel increases cost and technical risk over time</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>InfoTrack Telematics Pvt. Ltd. — Internal Use</span>
+    <span>Prepared with Claude / Anthropic · May 2026</span>
+  </div>
+
+</div>
+</body>
+</html>
